@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://n1kd3517h5np"]
+
+[ext_resource type="Script" path="res://scn/menu/start_memu.gd" id="1_d0ski"]
+[ext_resource type="PackedScene" uid="uid://dl5rcnnyyp46p" path="res://scn/background/background.tscn" id="1_wd8fq"]
+
+[node name="StartMemu" type="Node2D"]
+script = ExtResource("1_d0ski")
+metadata/_edit_vertical_guides_ = [576.0, 1152.0]
+
+[node name="Play" type="Button" parent="."]
+offset_left = 490.0
+offset_top = 207.0
+offset_right = 662.0
+offset_bottom = 287.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+text = "Play
+"
+
+[node name="Quit" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 490.0
+offset_top = 350.0
+offset_right = 662.0
+offset_bottom = 430.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+
+[node name="Background" parent="." instance=ExtResource("1_wd8fq")]
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
