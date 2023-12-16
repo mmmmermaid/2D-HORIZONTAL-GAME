@@ -166,8 +166,8 @@ shape = SubResource("RectangleShape2D_05yuy")
 position = Vector2(4, -1)
 shape = SubResource("RectangleShape2D_gfrnn")
 
-[connection signal="body_entered" from="ChaseDetector" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="ChaseDetector" to="." method="_on_chase_detector_body_entered"]
+[connection signal="body_entered" from="ChaseDetector" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="ChaseDetector" to="." method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_attack_detector_body_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]

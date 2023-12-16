@@ -7,6 +7,8 @@ enum {
 	ATTACK_1,
 	ATTACK_2,
 	ATTACK_3,
+	DAMAGE,
+	DEATH,
 }
 
 const SPEED = 300.0
@@ -26,6 +28,9 @@ var attack_cooldown = false
 
 var player_pos
 
+func _ready() -> void:
+	Signals.connect("enemy_attack", Callable(self, "on_damage_re"))
+
 func _physics_process(delta: float) -> void:
 	match state:
 		MOVE:
@@ -38,13 +43,19 @@ func _physics_process(delta: float) -> void:
 			block_state()
 			
 		ATTACK_1:
-			attack_1_statr()
+			attack_1_state()
 			
 		ATTACK_2:
-			attack_2_statr()
+			attack_2_state()
 			
 		ATTACK_3:
-			attack_3_statr()
+			attack_3_state()
+		
+		DAMAGE:
+			damage_state()
+		
+		DEATH:
+			pass
 		
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -112,7 +123,7 @@ func slide_state():
 	await animation_player.animation_finished
 	state = MOVE
 
-func attack_1_statr():
+func attack_1_state():
 	if Input.is_action_just_pressed("attack") and combo:
 		state = ATTACK_2
 	velocity.x = 0
@@ -126,14 +137,14 @@ func combo_1():
 	await animation_player.animation_finished
 	combo = false
 
-func attack_2_statr():
+func attack_2_state():
 	if Input.is_action_just_pressed("attack") and combo:
 		state = ATTACK_3
 	animation_player.play("attack_2")
 	await animation_player.animation_finished
 	state = MOVE
 
-func attack_3_statr():
+func attack_3_state():
 	animation_player.play("attack_3")
 	await animation_player.animation_finished
 	state = MOVE
@@ -142,3 +153,14 @@ func attack_freeze():
 	attack_cooldown = true
 	await get_tree().create_timer(0.3).timeout
 	attack_cooldown = false
+
+func damage_state():
+	velocity.x = 0
+	animation_player.play("damage")
+	await animation_player.animation_finished
+	state = MOVE
+
+func on_damage_received(enemy_damage):
+	state = DAMAGE
+	health -= enemy_damage
+	print(health)

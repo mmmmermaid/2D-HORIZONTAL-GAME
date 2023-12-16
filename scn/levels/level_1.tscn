@@ -1736,6 +1736,7 @@ position = Vector2(311, 480)
 [node name="PointLight2D" type="PointLight2D" parent="Buildings"]
 position = Vector2(312, 502)
 scale = Vector2(0.365, 0.34913)
+color = Color(1, 1, 0.784314, 1)
 energy = 1.5
 shadow_enabled = true
 texture = ExtResource("8_1g4mo")
